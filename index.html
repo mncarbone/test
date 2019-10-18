@@ -75,7 +75,10 @@
                     scanning = true;
 
                     if(cordova){
-                        cordova.plugins.barcodeScanner.scan(
+                        if (!cordova.plugins.barcodeScanner){
+                            alert('barcodeScanner not loaded');
+                        }
+                        else cordova.plugins.barcodeScanner.scan(
                           function (result) {
                                 try{
                                     if(!result.cancelled){
@@ -91,6 +94,7 @@
                           },
                           function (error) {
                                 console.log(error);
+                                alert("Scanning failed: " + error);
                                 mostrarError();
                           },
                           {
