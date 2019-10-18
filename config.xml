@@ -25,5 +25,12 @@
     </platform>
     <plugin name="cordova-plugin-whitelist"/>
     <plugin name="cordova-plugin-camera"/>
-    <plugin name="phonegap-plugin-barcodescanner" />
+    <plugin name="cordova-plugin-barcodescanner" />
+
+    <config-file target="AndroidManifest.xml" parent="/*" mode="merge">
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-feature android:name="android.hardware.camera" />
+        <uses-feature android:name="android.hardware.camera.autofocus" />
+    </config-file>
+
 </widget>
