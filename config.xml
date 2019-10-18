@@ -25,6 +25,6 @@
     </platform>
     <plugin name="cordova-plugin-whitelist"/>
     <plugin name="cordova-plugin-camera"/>
-    <plugin name="cordova-plugin-barcodescanner" />
+    <plugin name="barcodescanner" />
 
 </widget>
