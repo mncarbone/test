@@ -25,5 +25,6 @@
     </platform>
     <plugin name="cordova-plugin-whitelist"/>
     <plugin name="cordova-plugin-camera"/>
-    <plugin name="BarcodeScanner" />
+    <plugin name="phonegap-plugin-barcodescanner" />
+    <preference name="phonegap-version" value="cli-7.1.0" />
 </widget>
