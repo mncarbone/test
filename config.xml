@@ -7,7 +7,6 @@
     <author href="https://github.com/mncarbone" email="consultas@mncarbone.com.ar">
      MNC
     </author>
-    <preference name="phonegap-version" value="^6.5.0" />
     <content src="index.html" />
     <icon src="logo.png" />
     <access origin="*" />
@@ -24,7 +23,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <engine name="android" spec="^8.0.0" />
     <plugin name="cordova-plugin-whitelist"/>
     <plugin name="cordova-plugin-camera"/>
     <plugin name="phonegap-plugin-barcodescanner" />
