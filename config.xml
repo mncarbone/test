@@ -25,6 +25,5 @@
     </platform>
     <plugin name="cordova-plugin-whitelist"/>
     <plugin name="cordova-plugin-camera"/>
-    <plugin name="phonegap-plugin-barcodescanner" />
-    <preference name="android-build-tool" value="gradle" />
+    <plugin name="BarcodeScanner" />
 </widget>
