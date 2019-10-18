@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <title>DNI Scanner</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+
+            body{
+                display: flex;
+                flex-direction: column;
+                height: 100vh;
+            }
+
+            #datos{
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            #datos span{
+                text-align: center;
+                font-weight: bold;
+                font-size: xx-large;
+            }
+
+            #escanear{
+                margin: 30px;
+                height: 100px;
+                font-size: xx-large;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="datos"></div>
+        <button id="escanear">Escanear DNI</button>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript">
+
+            function mostrarError(){
+                document.getElementById('datos').innerHTML = '<span>Error en la lectura</span>';
+            }
+
+            function mostrarDatos(datos){
+                let html = `
+                    <span>
+                        ${datos.dni}<br/>
+                        ${datos.nombre}<br/>
+                        ${datos.apellido}<br/>
+                    <span>
+                `;
+                document.getElementById('datos').innerHTML = html;
+            }
+
+            scanning = false;
+            document.addEventListener("deviceready", event => {
+
+                document.addEventListener("backbutton", event => {
+                    if(scanning) {
+                        scanning = false;
+                    }
+                    else {
+                        navigator.app.exitApp();
+                    }
+                }, false);
+
+                document.getElementById('escanear').addEventListener('click', event => {
+                    scanning = true;
+
+                    if(cordova) cordova.plugins.barcodeScanner.scan(
+                      function (result) {
+                            try{
+                                if(!result.cancelled){
+                                    let datos = {};
+                                    [n, datos.apellido, datos.nombre, s, datos.dni, x, e, f] = result.text.split('@');
+                                    mostrarDatos(datos);
+                                }
+                            }
+                            catch(error){
+                                console.log(error);
+                                mostrarError();
+                            }
+                      },
+                      function (error) {
+                            console.log(error);
+                            mostrarError();
+                      },
+                      {
+                          preferFrontCamera : false, // iOS and Android
+                          showFlipCameraButton : false, // iOS and Android
+                          showTorchButton : false, // iOS and Android
+                          torchOn: false, // Android, launch with the torch switched on (if available)
+                          saveHistory: false, // Android, save scan history (default false)
+                          prompt : "Escanear DNI", // Android
+                          resultDisplayDuration: 0, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                          formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+                          //orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+                          disableAnimations : true, // iOS
+                          disableSuccessBeep: false // iOS and Android
+                      }
+                   );
+                }, false);
+            }, false);
+        </script>
+    </body>
+</html>
